@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const fs = require('fs');
+const { dataPath, debugMode } = require('./config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -15,20 +16,20 @@ module.exports = {
 			return;
 		}
 		let activeStreaks = {};
-		fs.readFile('./.activeStreaks', 'utf8', function(err, data) {
+		fs.readFile(dataPath, 'utf8', function(err, data) {
 			if (err) {
 		  return err;
 			}
 			if (typeof data == 'undefined' || data.trim() == '') return;
 			activeStreaks = JSON.parse(data);
 			delete (activeStreaks[player]);
-			fs.writeFile('./.activeStreaks', JSON.stringify(activeStreaks), async function(err) {
+			fs.writeFile(dataPath, JSON.stringify(activeStreaks), async function(err) {
 				if (err) {
 					console.log(err);
 					return err;
 				}
 				// console.log(fname + " saved!");
-				console.log('.activeStreaks' + ' saved!');
+				if (debugMode) console.log('index.js line 42: interaction:', interaction);console.log('.activeStreaks' + ' saved!');
 				const streak = ['Active Streaks\n', '--------------\n'];
 				for (const i in activeStreaks) {
 					streak.push(i + ': ' + activeStreaks[i] + '\n');
