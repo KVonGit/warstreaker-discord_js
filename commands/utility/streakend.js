@@ -12,7 +12,7 @@ module.exports = {
 	async execute(interaction) {
 		const player = interaction.options.getString('player');
 		if (typeof player == 'undefined') {
-			await interaction.reply('Target not defined.');
+			await interaction.reply({ content: 'Target not defined.', flags: 64 });
 			return;
 		}
 		let activeStreaks = {};
@@ -34,7 +34,7 @@ module.exports = {
 				for (const i in activeStreaks) {
 					streak.push(i + ': ' + activeStreaks[i] + '\n');
 				}
-				await interaction.reply(streak.join(''));
+				await interaction.reply({ content: streak.join(''), flags: 64 });
 			});
 		});
 	},

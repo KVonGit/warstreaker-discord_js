@@ -29,14 +29,14 @@ module.exports = {
 					return err;
 				}
 				if (debugMode) {
-					console.log(fname + " saved! " + new Date().toLocaleString());
+					console.log(player + " saved! " + new Date().toLocaleString());
 					console.log('.activeStreaks' + ' saved! ' + new Date().toLocaleString());
 				}
 				const streak = ['Active Streaks\n', '--------------\n'];
 		    for (const i in activeStreaks) {
 			    streak.push(i + ': ' + activeStreaks[i] + '\n');
 		    }
-		    await interaction.reply(streak.join(''));
+		    await interaction.reply({ content: streak.join(''), flags: 64 });
 		  });
 		});
 	},
